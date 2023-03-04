@@ -1,12 +1,17 @@
 // React
 import React from 'react';
-// Gesture handler
-// import 'react-native-gesture-handler';
+// Native base
+import { NativeBaseProvider } from 'native-base';
+import theme from './theme';
 
 import App from './App';
 
 ///////////////////////////////////////////////////////////////////
 export default function AppWrapper() {
   // JSX ----------------------------------------------------------
-  return <App />;
+  return (
+    <NativeBaseProvider theme={theme}>
+      <App />
+    </NativeBaseProvider>
+  );
 }

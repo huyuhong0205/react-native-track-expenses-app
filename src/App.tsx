@@ -1,8 +1,9 @@
 // React
 import React from 'react';
-import { View, Text } from 'react-native';
 // Expo
 import { StatusBar } from 'expo-status-bar';
+// Native base
+import { Box, Text } from 'native-base';
 
 ///////////////////////////////////////////////////////////////////
 export default function App() {
@@ -12,9 +13,14 @@ export default function App() {
       {/* eslint-disable-next-line react/style-prop-object */}
       <StatusBar style="dark" />
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        bgColor="primary.100"
+      >
         <Text>Hello world!</Text>
-      </View>
+      </Box>
     </>
   );
 }
