@@ -1,16 +1,13 @@
-import 'expo-dev-client';
-import 'react-native-get-random-values';
+// React
 import React from 'react';
-import {registerRootComponent} from 'expo'
-import {AppWrapperNonSync} from './app/AppWrapperNonSync';
-import {AppWrapperSync} from './app/AppWrapperSync';
-import {SYNC_CONFIG} from './sync.config';
+// Expo
+import 'expo-dev-client';
+import { registerRootComponent } from 'expo';
+// Realm
+import 'react-native-get-random-values';
 
-const App = () =>
-  SYNC_CONFIG.enabled ? (
-    <AppWrapperSync appId={SYNC_CONFIG.appId} />
-  ) : (
-    <AppWrapperNonSync />
-  );
+// Root component
+import AppWrapper from './src/AppWrapper';
 
+const App = () => <AppWrapper />;
 registerRootComponent(App);
