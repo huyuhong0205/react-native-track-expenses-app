@@ -3,7 +3,9 @@ import React from 'react';
 // Expo
 import { StatusBar } from 'expo-status-bar';
 // Native base
-import { Box, Text } from 'native-base';
+import { VStack, Box, Text, useColorModeValue } from 'native-base';
+
+import ThemeToggle from './components/ThemeToggle';
 
 ///////////////////////////////////////////////////////////////////
 export default function App() {
@@ -11,16 +13,23 @@ export default function App() {
   return (
     <>
       {/* eslint-disable-next-line react/style-prop-object */}
-      <StatusBar style="dark" />
+      <StatusBar style={useColorModeValue('dark', 'light')} />
 
-      <Box
+      <VStack
         flex={1}
+        space={4}
         justifyContent="center"
         alignItems="center"
-        bgColor="primary.100"
+        bgColor={useColorModeValue('bgLight', 'bgDark')}
       >
         <Text>Hello world!</Text>
-      </Box>
+        <Box
+          height={20}
+          width={20}
+          bgColor={useColorModeValue('primary.700', 'primary.500')}
+        />
+        <ThemeToggle />
+      </VStack>
     </>
   );
 }
