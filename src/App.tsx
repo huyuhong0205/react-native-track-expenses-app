@@ -1,11 +1,32 @@
-// React
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-use-before-define */
 // Expo
 import { StatusBar } from 'expo-status-bar';
+// React
+import React from 'react';
+// Navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 // Native base
-import { VStack, Box, Text, useColorModeValue } from 'native-base';
+import { useColorModeValue } from 'native-base';
 
-import ThemeToggle from './components/ThemeToggle';
+// Screens
+import ExpensesScreen from './screens/ExpensesScreen';
+import CategoriesScreen from './screens/CategoriesScreen';
+import ExpenseFormScreen from './screens/ExpenseFormScreen';
+// Components
+import DrawerSidebar from './components/Navigator/DrawerSidebar';
+// Types
+import { TDrawerParamList, TStackParamList } from './types/TypeNavigator';
+
+const Drawer = createDrawerNavigator<TDrawerParamList>();
+const Stack = createStackNavigator<TStackParamList>();
+
+const bgLightMode = '#fafafa';
+const bgDarkMode = '#262626';
 
 ///////////////////////////////////////////////////////////////////
 export default function App() {
@@ -15,21 +36,59 @@ export default function App() {
       {/* eslint-disable-next-line react/style-prop-object */}
       <StatusBar style={useColorModeValue('dark', 'light')} />
 
-      <VStack
-        flex={1}
-        space={4}
-        justifyContent="center"
-        alignItems="center"
-        bgColor={useColorModeValue('bgLight', 'bgDark')}
+      <NavigationContainer
+        // [NOTE] fix background color flash when switching between screen: https://stackoverflow.com/questions/59900898/white-background-flashing-when-switching-screens-react-navigation-v5
+        theme={{
+          colors: {
+            primary: undefined,
+            card: undefined,
+            text: undefined,
+            border: undefined,
+            notification: undefined,
+            background: useColorModeValue(bgLightMode, bgDarkMode),
+          },
+          dark: undefined,
+        }}
       >
-        <Text>Hello world!</Text>
-        <Box
-          height={20}
-          width={20}
-          bgColor={useColorModeValue('primary.700', 'primary.500')}
-        />
-        <ThemeToggle />
-      </VStack>
+        <StackNavigator />
+      </NavigationContainer>
     </>
+  );
+}
+
+function StackNavigator() {
+  return (
+    <Stack.Navigator
+      initialRouteName="drawer_navigator"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: {
+          backgroundColor: useColorModeValue(bgLightMode, bgDarkMode),
+        },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name="expense_form_screen" component={ExpenseFormScreen} />
+      <Stack.Screen name="drawer_navigator" component={DrawerNavigator} />
+    </Stack.Navigator>
+  );
+}
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      initialRouteName="expenses_screen"
+      // eslint-disable-next-line react/jsx-props-no-spreading, react/no-unstable-nested-components
+      drawerContent={(props) => <DrawerSidebar {...props} />}
+      screenOptions={{
+        swipeEdgeWidth: 100,
+        headerShown: false,
+        drawerType: 'back',
+        overlayColor: 'transparent',
+      }}
+    >
+      <Drawer.Screen name="expenses_screen" component={ExpensesScreen} />
+      <Drawer.Screen name="categories_screen" component={CategoriesScreen} />
+    </Drawer.Navigator>
   );
 }

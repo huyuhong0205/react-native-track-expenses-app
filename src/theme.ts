@@ -6,8 +6,11 @@ const config = {
 };
 
 const colors = {
-  bgLight: '#fafafa', // muted.50
-  bgDark: '#262626', // muted.800
+  bgLightMode: '#fafafa', // muted.50
+  bgDarkMode: '#262626', // muted.800
+
+  textLightMode: '#171717',
+  textDarkMode: '#ffffff',
 
   primary: {
     50: '#eff6ff',

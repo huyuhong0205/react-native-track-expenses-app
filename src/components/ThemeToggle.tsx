@@ -9,18 +9,14 @@ export default function ThemeToggle() {
 
   // JSX ----------------------------------------------------------
   return (
-    <HStack
-      space={2}
-      alignItems="center"
-      bgColor="red.100" // [TEMP]
-    >
-      <Text>Dark</Text>
+    <HStack space={2} alignItems="center">
+      <Text>Light</Text>
       <Switch
-        isChecked={colorMode === 'light'}
+        isChecked={colorMode === 'dark'}
         onToggle={toggleColorMode}
         colorScheme="primary"
       />
-      <Text>Light</Text>
+      <Text>Dark</Text>
     </HStack>
   );
 }
