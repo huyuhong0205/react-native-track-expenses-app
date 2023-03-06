@@ -18,7 +18,7 @@ import ExpensesScreen from './screens/ExpensesScreen';
 import CategoriesScreen from './screens/CategoriesScreen';
 import ExpenseFormScreen from './screens/ExpenseFormScreen';
 // Components
-import DrawerSidebar from './components/Navigator/DrawerSidebar';
+import DrawerSidebar from './components/navigator/DrawerSidebar';
 // Types
 import { TDrawerParamList, TStackParamList } from './types/TypeNavigator';
 

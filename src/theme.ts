@@ -9,8 +9,11 @@ const colors = {
   bgLightMode: '#fafafa', // muted.50
   bgDarkMode: '#262626', // muted.800
 
-  textLightMode: '#171717',
-  textDarkMode: '#ffffff',
+  textLightMode: '#171717', // native base default
+  textDarkMode: '#ffffff', // native base default
+
+  rippleLightMode: '#00000010',
+  rippleDarkMode: '#ffffff10',
 
   primary: {
     50: '#eff6ff',

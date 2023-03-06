@@ -4,7 +4,7 @@ import React from 'react';
 import { Box, Text } from 'native-base';
 
 // Components
-import DrawerNavbar from '../components/Navigator/DrawerNavbar';
+import DrawerNavbar from '../components/navigator/DrawerNavbar';
 
 ///////////////////////////////////////////////////////////////////
 export default function CategoriesScreen() {

@@ -8,7 +8,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { Box, Text, Button } from 'native-base';
 
 // Components
-import DrawerNavbar from '../components/Navigator/DrawerNavbar';
+import DrawerNavbar from '../components/navigator/DrawerNavbar';
 // Types
 import { TDrawerParamList, TStackParamList } from '../types/TypeNavigator';
 
