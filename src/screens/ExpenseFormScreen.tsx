@@ -1,13 +1,13 @@
-// React
+/* React */
 import React, { useCallback, useState } from 'react';
-// Native base
+/* Native base */
 import { VStack } from 'native-base';
 
-// Components
+/* Components */
 import StackNavbar from '../components/navigator/StackNavbar';
 import DateTimePicker from '../components/form/DateTimePicker';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 export default function ExpenseFormScreen() {
   const [date, setDate] = useState<Date>(new Date());
 
@@ -15,7 +15,7 @@ export default function ExpenseFormScreen() {
     setDate(selectedDate);
   }, []);
 
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <>
       <StackNavbar title="Add new expense" />

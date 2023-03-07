@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 /* Expo */
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -21,10 +23,14 @@ export default function AppWrapper() {
   useEffect(() => {
     async function prepare() {
       try {
+        // Load icon font
         await Font.loadAsync({ IcoMoon: require('./assets/icomoon.ttf') });
+
+        //
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.warn(error);
+
+        //
       } finally {
         setAppIsReady(true);
       }

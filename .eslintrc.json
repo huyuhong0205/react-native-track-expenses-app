@@ -19,7 +19,6 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
-    "spaced-comment": 0, // allow //////
     "global-require": 0, // for react native require assets
     "react/react-in-jsx-scope": 0, // not required import React
     "@typescript-eslint/no-var-requires": 0, // for react native require assets

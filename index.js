@@ -1,13 +1,14 @@
-// React
+/* React */
 import React from 'react';
-// Expo
+/* Expo */
 import 'expo-dev-client';
 import { registerRootComponent } from 'expo';
-// Realm
+/* Realm */
 import 'react-native-get-random-values';
 
-// Root component
+/* Root component */
 import AppWrapper from './src/AppWrapper';
 
 const App = () => <AppWrapper />;
+
 registerRootComponent(App);

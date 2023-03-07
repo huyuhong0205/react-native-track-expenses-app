@@ -1,26 +1,26 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-// Expo
+/* Expo */
 import { StatusBar } from 'expo-status-bar';
-// React
+/* React */
 import React from 'react';
-// Navigation
+/* Navigation */
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
   createStackNavigator,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
-// Native base
+/* Native base */
 import { useColorModeValue } from 'native-base';
 
-// Screens
+/* Screens */
 import ExpensesScreen from './screens/ExpensesScreen';
 import CategoriesScreen from './screens/CategoriesScreen';
 import ExpenseFormScreen from './screens/ExpenseFormScreen';
-// Components
+/* Components */
 import DrawerSidebar from './components/navigator/DrawerSidebar';
-// Types
+/* Types */
 import { TDrawerParamList, TStackParamList } from './types/TypeNavigator';
 
 const Drawer = createDrawerNavigator<TDrawerParamList>();
@@ -29,7 +29,7 @@ const Stack = createStackNavigator<TStackParamList>();
 const bgLightMode = '#fafafa';
 const bgDarkMode = '#262626';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 export default function App() {
   return (
     <>
@@ -56,6 +56,7 @@ export default function App() {
   );
 }
 
+/* //////////////////////////////////////////////////////////////// */
 function StackNavigator() {
   return (
     <Stack.Navigator
@@ -74,6 +75,7 @@ function StackNavigator() {
   );
 }
 
+/* //////////////////////////////////////////////////////////////// */
 function DrawerNavigator() {
   return (
     <Drawer.Navigator

@@ -1,18 +1,18 @@
-// Expo
+/* Expo */
 import { Feather } from '@expo/vector-icons';
-// React
+/* React */
 import React, { useCallback } from 'react';
-// Native base
+/* Native base */
 import { HStack, Text, Button, Icon, useColorModeValue } from 'native-base';
-// DateTimePicker
+/* DateTimePicker */
 import {
   DateTimePickerAndroid,
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
-// Date fns
+/* Date fns */
 import { format } from 'date-fns';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 type Props = {
   date: Date;
   onSelectDate: (selectedDate: Date) => void;
@@ -22,7 +22,7 @@ export default function DateTimePicker({
   date,
   onSelectDate: handleSelectDate,
 }: Props) {
-  // Event handler ------------------------------------------------
+  /* Event handler ------------------------------------------------ */
   const handleDateChange = useCallback(
     (_: DateTimePickerEvent, selectedDate: Date) => {
       const currentDate = selectedDate || new Date();
@@ -49,7 +49,7 @@ export default function DateTimePicker({
     });
   };
 
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <HStack
       space={4}

@@ -1,17 +1,17 @@
-// Expo
+/* Expo */
 import { Feather } from '@expo/vector-icons';
-// React
+/* React */
 import React, { useCallback } from 'react';
-// Navigation
+/* Navigation */
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-// Native base
+/* Native base */
 import { HStack, Text, IconButton, useColorModeValue } from 'native-base';
 
-// Types
+/* Types */
 import { TStackParamList } from '../../types/TypeNavigator';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 type Props = {
   title: string;
 };
@@ -19,12 +19,12 @@ type Props = {
 export default function StackNavbar({ title }: Props) {
   const { goBack } = useNavigation<StackNavigationProp<TStackParamList>>();
 
-  // Event handler ------------------------------------------------
+  /* Event handler ------------------------------------------------ */
   const handlePressGoBackButton = useCallback(() => {
     goBack();
   }, [goBack]);
 
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <HStack
       safeArea

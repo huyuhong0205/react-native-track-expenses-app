@@ -1,14 +1,14 @@
-// React
+/* React */
 import React from 'react';
-// Native base
+/* Native base */
 import { Box, Text } from 'native-base';
 
-// Components
+/* Components */
 import DrawerNavbar from '../components/navigator/DrawerNavbar';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 export default function CategoriesScreen() {
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <>
       <DrawerNavbar title="Categories" />

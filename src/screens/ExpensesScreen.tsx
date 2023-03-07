@@ -1,18 +1,18 @@
-// React
+/* React */
 import React, { useCallback } from 'react';
-// Navigation
+/* Navigation */
 import { CompositeScreenProps } from '@react-navigation/native';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { StackScreenProps } from '@react-navigation/stack';
-// Native base
+/* Native base */
 import { Box, Text, Button } from 'native-base';
 
-// Components
+/* Components */
 import DrawerNavbar from '../components/navigator/DrawerNavbar';
-// Types
+/* Types */
 import { TDrawerParamList, TStackParamList } from '../types/TypeNavigator';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 type Props = CompositeScreenProps<
   DrawerScreenProps<TDrawerParamList, 'expenses_screen'>,
   StackScreenProps<TStackParamList>
@@ -23,7 +23,7 @@ export default function ExpensesScreen({ navigation }: Props) {
     navigation.navigate('expense_form_screen');
   }, [navigation]);
 
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <>
       <DrawerNavbar title="Expenses" />

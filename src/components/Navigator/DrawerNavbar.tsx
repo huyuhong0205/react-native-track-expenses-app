@@ -1,17 +1,17 @@
-// React
+/* React */
 import React, { useCallback } from 'react';
-// Navigation
+/* Navigation */
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-// Native base
+/* Native base */
 import { HStack, Text, IconButton, useColorModeValue } from 'native-base';
 
-// Components
+/* Components */
 import CustomIcon from '../CustomIcon';
-// Types
+/* Types */
 import { TDrawerParamList } from '../../types/TypeNavigator';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 type Props = {
   title: string;
 };
@@ -20,12 +20,12 @@ export default function DrawerNavbar({ title }: Props) {
   const { openDrawer } =
     useNavigation<DrawerNavigationProp<TDrawerParamList>>();
 
-  // Event handler ------------------------------------------------
+  /* Event handler ------------------------------------------------ */
   const handlePressMenuButton = useCallback(() => {
     openDrawer();
   }, [openDrawer]);
 
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <HStack
       safeArea

@@ -1,15 +1,15 @@
-// React
+/* React */
 import React, { useCallback } from 'react';
-// Navigation
+/* Navigation */
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-// Native base
+/* Native base */
 import { VStack, Box, Center } from 'native-base';
 
-// Components
+/* Components */
 import MenuButton from './MenuButton';
 import ThemeToggle from '../ThemeToggle';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 type Props = DrawerContentComponentProps;
 
 export default function DrawerSidebar({
@@ -26,7 +26,7 @@ export default function DrawerSidebar({
     navigation.navigate('categories_screen');
   }, [navigation]);
 
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <Box
       safeArea

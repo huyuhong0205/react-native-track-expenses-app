@@ -1,11 +1,11 @@
-// Expo
+/* Expo */
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-// React
+/* React */
 import React from 'react';
-// Native base
+/* Native base */
 import { Button, Icon, useColorModeValue, IButtonProps } from 'native-base';
 
-///////////////////////////////////////////////////////////////////
+/* //////////////////////////////////////////////////////////////// */
 type Props = IButtonProps & {
   children: string;
   active: boolean;
@@ -18,7 +18,7 @@ export default function MenuButton({
   icon,
   ...props
 }: Props) {
-  // JSX ----------------------------------------------------------
+  /* JSX ---------------------------------------------------------- */
   return (
     <Button
       _light={{ bgColor: active ? '#00000010' : 'transparent' }}
