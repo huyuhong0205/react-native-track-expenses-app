@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+
 // Expo
 import { StatusBar } from 'expo-status-bar';
 // React
@@ -30,7 +31,6 @@ const bgDarkMode = '#262626';
 
 ///////////////////////////////////////////////////////////////////
 export default function App() {
-  // JSX ----------------------------------------------------------
   return (
     <>
       {/* eslint-disable-next-line react/style-prop-object */}

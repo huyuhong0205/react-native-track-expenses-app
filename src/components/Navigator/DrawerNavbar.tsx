@@ -1,5 +1,3 @@
-// Expo
-import { Feather } from '@expo/vector-icons';
 // React
 import React, { useCallback } from 'react';
 // Navigation
@@ -8,6 +6,8 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 // Native base
 import { HStack, Text, IconButton, useColorModeValue } from 'native-base';
 
+// Components
+import CustomIcon from '../CustomIcon';
 // Types
 import { TDrawerParamList } from '../../types/TypeNavigator';
 
@@ -41,7 +41,7 @@ export default function DrawerNavbar({ title }: Props) {
         onPress={handlePressMenuButton}
         borderRadius="full"
         _icon={{
-          as: Feather,
+          as: CustomIcon,
           name: 'menu',
           size: '22px',
           color: useColorModeValue('#171717', '#ffffff'),
