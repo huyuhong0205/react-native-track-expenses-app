@@ -1,5 +1,3 @@
-/* Expo */
-import { Feather } from '@expo/vector-icons';
 /* React */
 import React, { useCallback } from 'react';
 /* Navigation */
@@ -8,6 +6,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 /* Native base */
 import { HStack, Text, IconButton, useColorModeValue } from 'native-base';
 
+/* Components */
+import CustomIcon from '../../atoms/CustomIcon';
 /* Types */
 import { TStackParamList } from '../../types/TypeNavigator';
 
@@ -40,9 +40,9 @@ export default function StackNavbar({ title }: Props) {
         onPress={handlePressGoBackButton}
         borderRadius="full"
         _icon={{
-          as: Feather,
+          as: CustomIcon,
           name: 'arrow-left',
-          size: '22px',
+          size: 22,
           color: useColorModeValue('#171717', '#ffffff'),
         }}
         _pressed={{ bgColor: 'transparent' }}

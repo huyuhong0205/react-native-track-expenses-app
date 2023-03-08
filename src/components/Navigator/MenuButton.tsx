@@ -1,9 +1,10 @@
-/* Expo */
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 /* React */
 import React from 'react';
 /* Native base */
 import { Button, Icon, useColorModeValue, IButtonProps } from 'native-base';
+
+/* Components */
+import CustomIcon from '../../atoms/CustomIcon';
 
 /* //////////////////////////////////////////////////////////////// */
 type Props = IButtonProps & {
@@ -29,7 +30,7 @@ export default function MenuButton({
       variant="solid"
       leftIcon={
         <Icon
-          as={MaterialCommunityIcons}
+          as={CustomIcon}
           name={icon}
           color={useColorModeValue('textLightMode', 'textDarkMode')}
           size="md"

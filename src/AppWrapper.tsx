@@ -23,8 +23,12 @@ export default function AppWrapper() {
   useEffect(() => {
     async function prepare() {
       try {
+        console.log('waiting for loading assets...');
+
         // Load icon font
         await Font.loadAsync({ IcoMoon: require('./assets/icomoon.ttf') });
+
+        console.log('assets loaded.');
 
         //
       } catch (error) {

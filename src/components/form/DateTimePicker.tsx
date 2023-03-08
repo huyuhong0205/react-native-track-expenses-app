@@ -1,5 +1,3 @@
-/* Expo */
-import { Feather } from '@expo/vector-icons';
 /* React */
 import React, { useCallback } from 'react';
 /* Native base */
@@ -11,6 +9,9 @@ import {
 } from '@react-native-community/datetimepicker';
 /* Date fns */
 import { format } from 'date-fns';
+
+/* Components */
+import CustomIcon from '../../atoms/CustomIcon';
 
 /* //////////////////////////////////////////////////////////////// */
 type Props = {
@@ -66,7 +67,7 @@ export default function DateTimePicker({
         }}
       >
         <HStack alignItems="center">
-          <Icon as={Feather} name="calendar" size={6} marginRight={2} />
+          <Icon as={CustomIcon} name="calendar" size={6} marginRight={2} />
           <Text fontSize={16}>{format(date, 'yyyy/MM/dd')}</Text>
         </HStack>
       </Button>
@@ -80,7 +81,7 @@ export default function DateTimePicker({
         }}
       >
         <HStack alignItems="center">
-          <Icon as={Feather} name="clock" size={6} marginRight={2} />
+          <Icon as={CustomIcon} name="clock" size={6} marginRight={2} />
           <Text fontSize={16}>{format(date, 'hh:mm')}</Text>
         </HStack>
       </Button>

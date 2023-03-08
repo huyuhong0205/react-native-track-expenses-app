@@ -7,7 +7,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { HStack, Text, IconButton, useColorModeValue } from 'native-base';
 
 /* Components */
-import CustomIcon from '../CustomIcon';
+import CustomIcon from '../../atoms/CustomIcon';
 /* Types */
 import { TDrawerParamList } from '../../types/TypeNavigator';
 
