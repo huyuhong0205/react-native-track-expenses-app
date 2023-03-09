@@ -28,18 +28,18 @@ export default function AmountInput({
     <>
       {isCalculatorOpen && (
         <Calculator
-          isOpen={isCalculatorOpen}
+          isOpen
           onClose={() => setIsCalculatorOpen(false)}
           onPressOK={onAmountChange}
         />
       )}
 
-      <HStack space={2} width="full" alignItems="center">
-        <Icon as={CustomIcon} name="money" size={6} marginLeft={3} />
+      <HStack space="xs" width="full" alignItems="center" paddingX={3}>
+        <Icon as={CustomIcon} name="money" size="lg" />
 
         <Input
           value={amount}
-          placeholder="0.0"
+          placeholder="0"
           onChangeText={onAmountChange}
           keyboardType="decimal-pad"
           variant="unstyled"
@@ -47,14 +47,14 @@ export default function AmountInput({
           fontSize="2xl"
         />
 
-        <HStack space={2} marginLeft="auto" marginRight="auto">
+        <HStack space="xs" marginLeft="auto" marginRight="auto">
           <IconButton
             onPress={onToggleIsExpense}
             icon={
               <Icon
                 as={CustomIcon}
                 name={isExpense ? 'remove_circle' : 'add_circle'}
-                size="36px"
+                size="3xl"
                 color={isExpense ? 'red.500' : 'green.500'}
               />
             }
@@ -67,7 +67,7 @@ export default function AmountInput({
               <Icon
                 as={CustomIcon}
                 name="calculate"
-                size="36px"
+                size="3xl"
                 color="primary.500"
               />
             }

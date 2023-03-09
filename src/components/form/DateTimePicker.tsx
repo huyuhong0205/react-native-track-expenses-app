@@ -53,7 +53,7 @@ export default function DateTimePicker({
   /* JSX ---------------------------------------------------------- */
   return (
     <HStack
-      space={4}
+      space="xl"
       justifyContent="flex-start"
       alignItems="center"
       width="full"
@@ -67,8 +67,8 @@ export default function DateTimePicker({
         }}
       >
         <HStack alignItems="center">
-          <Icon as={CustomIcon} name="calendar" size={6} marginRight={2} />
-          <Text fontSize={16}>{format(date, 'yyyy/MM/dd')}</Text>
+          <Icon as={CustomIcon} name="calendar" size="lg" marginRight={5} />
+          <Text fontSize="lg">{format(date, 'yyyy/MM/dd')}</Text>
         </HStack>
       </Button>
 
@@ -81,8 +81,8 @@ export default function DateTimePicker({
         }}
       >
         <HStack alignItems="center">
-          <Icon as={CustomIcon} name="clock" size={6} marginRight={2} />
-          <Text fontSize={16}>{format(date, 'hh:mm')}</Text>
+          <Icon as={CustomIcon} name="clock" size="lg" marginRight={5} />
+          <Text fontSize="lg">{format(date, 'hh:mm')}</Text>
         </HStack>
       </Button>
     </HStack>

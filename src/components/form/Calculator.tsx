@@ -7,10 +7,12 @@ import {
   HStack,
   Box,
   Text,
+  Icon,
   useColorModeValue,
 } from 'native-base';
 
 /* Components */
+import CustomIcon from '../../atoms/CustomIcon';
 import CalculatorCell from './CalculatorCell';
 /* Hooks */
 import useCalculator from '../../hooks/useCalculator';
@@ -108,7 +110,14 @@ export default function Calculator({ isOpen, onClose, onPressOK }: Props) {
         <HStack height={rowHeight}>
           <CalculatorCell onPress={addDigitDot}>.</CalculatorCell>
           <CalculatorCell onPress={addDigit0}>0</CalculatorCell>
-          <CalculatorCell onPress={deleteDigit}>del</CalculatorCell>
+          <CalculatorCell onPress={deleteDigit}>
+            <Icon
+              as={CustomIcon}
+              name="delete"
+              size="2xl"
+              color={useColorModeValue('textLightMode', 'textDarkMode')}
+            />
+          </CalculatorCell>
           <CalculatorCell onPress={chooseOperationPlus}>+</CalculatorCell>
         </HStack>
 

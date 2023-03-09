@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 /* Native base */
-import { HStack, Text, IconButton, useColorModeValue } from 'native-base';
+import { HStack, Box, Text, IconButton, useColorModeValue } from 'native-base';
 
 /* Components */
 import CustomIcon from '../../atoms/CustomIcon';
@@ -13,10 +13,16 @@ import { TStackParamList } from '../../types/TypeNavigator';
 
 /* //////////////////////////////////////////////////////////////// */
 type Props = {
+  children?: React.ReactNode;
   title: string;
 };
 
-export default function StackNavbar({ title }: Props) {
+// eslint-disable-next-line @typescript-eslint/no-use-before-define
+StackNavbar.defaultProps = {
+  children: null,
+};
+
+export default function StackNavbar({ children, title }: Props) {
   const { goBack } = useNavigation<StackNavigationProp<TStackParamList>>();
 
   /* Event handler ------------------------------------------------ */
@@ -51,7 +57,16 @@ export default function StackNavbar({ title }: Props) {
         {title}
       </Text>
 
-      {/* [TODO] header right buttons */}
+      {children !== null && (
+        <Box
+          justifyContent="center"
+          alignItems="center"
+          height="full"
+          marginRight="10px"
+        >
+          {children}
+        </Box>
+      )}
     </HStack>
   );
 }
