@@ -35,7 +35,7 @@ export default function AmountInput({
       )}
 
       <HStack space={2} width="full" alignItems="center">
-        <Icon as={CustomIcon} name="clock" size={6} marginLeft={3} />
+        <Icon as={CustomIcon} name="money" size={6} marginLeft={3} />
 
         <Input
           value={amount}
@@ -53,8 +53,8 @@ export default function AmountInput({
             icon={
               <Icon
                 as={CustomIcon}
-                name={isExpense ? 'clock' : 'calendar'}
-                size={8}
+                name={isExpense ? 'remove_circle' : 'add_circle'}
+                size="36px"
                 color={isExpense ? 'red.500' : 'green.500'}
               />
             }
@@ -64,9 +64,16 @@ export default function AmountInput({
           <IconButton
             onPress={() => setIsCalculatorOpen(true)}
             icon={
-              <Icon as={CustomIcon} name="clock" size={8} color="primary.500" />
+              <Icon
+                as={CustomIcon}
+                name="calculate"
+                size="36px"
+                color="primary.500"
+              />
             }
             variant="unstyled"
+            borderRadius="full"
+            _pressed={{ opacity: 0.7 }}
           />
         </HStack>
       </HStack>

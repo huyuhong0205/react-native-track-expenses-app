@@ -70,7 +70,11 @@ export default function Calculator({ isOpen, onClose, onPressOK }: Props) {
         bgColor={useColorModeValue('bgLightMode', 'bgDarkMode')}
       >
         <HStack height="150px">
-          <Box flex={1} padding={2} bgColor="primary.50">
+          <Box
+            flex={1}
+            padding={2}
+            bgColor={useColorModeValue('primary.50', 'primary.700')}
+          >
             <Text fontSize="3xl">
               {prevOperand} {operation}
             </Text>
