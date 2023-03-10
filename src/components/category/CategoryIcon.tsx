@@ -35,7 +35,7 @@ export default function CategoryIcon({ onPress, name }: Props) {
           name={name}
           size="2xl"
           color="textDarkMode"
-          opacity={0.8}
+          opacity={0.95}
         />
       )}
     </Button>

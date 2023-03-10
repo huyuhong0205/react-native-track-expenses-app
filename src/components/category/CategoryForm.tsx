@@ -1,14 +1,7 @@
 /* React */
 import React, { useCallback, useEffect, useState } from 'react';
 /* Native base */
-import {
-  VStack,
-  HStack,
-  Input,
-  Button,
-  Text,
-  useColorModeValue,
-} from 'native-base';
+import { VStack, HStack, Input, useColorModeValue } from 'native-base';
 /* Realm */
 import { BSON } from 'realm';
 
@@ -16,6 +9,7 @@ import { BSON } from 'realm';
 import { useRealm } from '../../models/realm';
 import Category from '../../models/categorySchema';
 /* Components */
+import CustomButton from '../../atoms/CustomButton';
 import CategoriesIconModal from './CategoriesIconModal';
 import CategoryIcon from './CategoryIcon';
 
@@ -121,31 +115,10 @@ export default function CategoryForm({
         </HStack>
 
         <HStack space="xs" alignItems="center" marginLeft="auto">
-          <Button
-            onPress={onCancel}
-            variant="unstyled"
-            padding={2}
-            android_ripple={{
-              color: useColorModeValue('rippleLightMode', 'rippleDarkMode'),
-            }}
-          >
-            <Text fontWeight="medium" opacity={0.7}>
-              CANCEL
-            </Text>
-          </Button>
-
-          <Button
-            onPress={handleConfirm}
-            variant="unstyled"
-            padding={2}
-            android_ripple={{
-              color: useColorModeValue('rippleLightMode', 'rippleDarkMode'),
-            }}
-          >
-            <Text fontWeight="medium" color="primary.500">
-              CONFIRM
-            </Text>
-          </Button>
+          <CustomButton onPress={onCancel}>Cancel</CustomButton>
+          <CustomButton onPress={handleConfirm} color="primary.500">
+            Confirm
+          </CustomButton>
         </HStack>
       </VStack>
     </>

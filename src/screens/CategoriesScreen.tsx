@@ -63,6 +63,7 @@ export default function CategoriesScreen() {
             <Button
               onPress={handleShowAddForm}
               variant="unstyled"
+              borderRadius="xl"
               bgColor="primary.600"
               android_ripple={{
                 color: 'rippleLightMode',
@@ -77,19 +78,25 @@ export default function CategoriesScreen() {
 
         <ScrollView flex={1} marginBottom={3}>
           <VStack space="sm">
-            {categoriesInRealm
-              .sorted('_id', true)
-              .map(({ _id, categoryName, iconName }) => (
-                <CategoryItem
-                  key={String(_id)}
-                  _id={_id}
-                  categoryName={categoryName}
-                  iconName={iconName}
-                  inEditMode={String(editCategoryId) === String(_id)}
-                  onEditCategory={handleEditCategory}
-                  onCancelEditCategory={handleCancelEditCategory}
-                />
-              ))}
+            {categoriesInRealm.length !== 0 ? (
+              categoriesInRealm
+                .sorted('_id', true)
+                .map(({ _id, categoryName, iconName }) => (
+                  <CategoryItem
+                    key={String(_id)}
+                    _id={_id}
+                    categoryName={categoryName}
+                    iconName={iconName}
+                    inEditMode={String(editCategoryId) === String(_id)}
+                    onEditCategory={handleEditCategory}
+                    onCancelCategoryEditMode={handleCancelEditCategory}
+                  />
+                ))
+            ) : (
+              <Text marginY={3} fontSize="xl" textAlign="center">
+                You don't have any categories.
+              </Text>
+            )}
           </VStack>
         </ScrollView>
       </VStack>

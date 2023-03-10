@@ -1,14 +1,18 @@
 /* React */
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 /* Native base */
 import { HStack, Box, Text, IconButton, Icon } from 'native-base';
 /* Realm */
 import { BSON } from 'realm';
 
+/* DB */
+import { useRealm } from '../../models/realm';
+import Category from '../../models/categorySchema';
 /* Components */
 import CustomIcon from '../../atoms/CustomIcon';
-import CategoryIcon from './CategoryIcon';
+import ConfirmDialog from '../ConfirmDialog';
 import CategoryForm from './CategoryForm';
+import CategoryIcon from './CategoryIcon';
 
 /* //////////////////////////////////////////////////////////////// */
 type Props = {
@@ -17,7 +21,7 @@ type Props = {
   iconName: string;
   inEditMode: boolean;
   onEditCategory: (categoryId: BSON.ObjectId) => void;
-  onCancelEditCategory: () => void;
+  onCancelCategoryEditMode: () => void;
 };
 
 export default function CategoryItem({
@@ -26,50 +30,89 @@ export default function CategoryItem({
   iconName,
   inEditMode,
   onEditCategory,
-  onCancelEditCategory,
+  onCancelCategoryEditMode,
 }: Props) {
-  const handleEditCategory = useCallback(() => {
+  const realm = useRealm();
+
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
+
+  /* Event handler ------------------------------------------------ */
+  const handleShowConfirmDialog = useCallback(() => {
+    setShowConfirmDialog(true);
+  }, []);
+
+  const handleHideConfirmDialog = useCallback(() => {
+    setShowConfirmDialog(false);
+  }, []);
+
+  const handleSwitchToEditMode = useCallback(() => {
     onEditCategory(_id);
   }, [onEditCategory, _id]);
+
+  const handleDeleteCategory = useCallback(() => {
+    const category = realm.objectForPrimaryKey(Category, _id);
+
+    if (!category) return;
+
+    // [TODO] delete expense before delete category
+    realm.write(() => {
+      realm.delete(category);
+    });
+  }, [realm, _id]);
 
   /* JSX ---------------------------------------------------------- */
   return inEditMode ? (
     <Box padding={3}>
       <CategoryForm
-        onCancel={onCancelEditCategory}
-        onConfirm={onCancelEditCategory}
+        onCancel={onCancelCategoryEditMode}
+        onConfirm={onCancelCategoryEditMode}
         categoryId={_id}
       />
     </Box>
   ) : (
-    <HStack space="sm" alignItems="center" padding={2}>
-      <CategoryIcon name={iconName} />
-      <Text fontSize="lg" fontWeight="medium">
-        {categoryName}
-      </Text>
+    <>
+      <ConfirmDialog
+        onConfirm={handleDeleteCategory}
+        isOpen={showConfirmDialog}
+        onClose={handleHideConfirmDialog}
+        title="Delete Category?"
+        description="If you delete this category, all expense belong this category will be
+        removed."
+        confirmActionText="Delete"
+      />
 
-      <HStack space="xs" marginLeft="auto">
-        <IconButton
-          onPress={handleEditCategory}
-          variant="unstyled"
-          icon={
-            <Icon
-              as={CustomIcon}
-              name="clock" // [TODO] change to edit icon
-              size="xl"
-              opacity={0.7}
-              _light={{ color: 'textLightMode' }}
-              _dark={{ color: 'textDarkMode' }}
-            />
-          }
-        />
-        <IconButton
-          variant="unstyled"
-          icon={
-            <Icon as={CustomIcon} name="trash" size="xl" color="error.500" />
-          }
-        />
+      <HStack space="sm" alignItems="center" padding={2}>
+        <CategoryIcon name={iconName} />
+        <Text fontSize="lg" fontWeight="medium">
+          {categoryName}
+        </Text>
+
+        <HStack space="xs" marginLeft="auto">
+          <IconButton
+            onPress={handleSwitchToEditMode}
+            variant="unstyled"
+            icon={
+              <Icon
+                as={CustomIcon}
+                name="edit"
+                size="xl"
+                opacity={0.7}
+                _light={{ color: 'textLightMode' }}
+                _dark={{ color: 'textDarkMode' }}
+              />
+            }
+            _pressed={{ opacity: 0.7 }}
+          />
+          <IconButton
+            onPress={handleShowConfirmDialog}
+            variant="unstyled"
+            icon={
+              <Icon as={CustomIcon} name="trash" size="xl" color="error.500" />
+            }
+            _pressed={{ opacity: 0.7 }}
+          />
+        </HStack>
       </HStack>
-    </HStack>
+    </>
   );
 }

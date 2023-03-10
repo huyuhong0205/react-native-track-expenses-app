@@ -21,6 +21,7 @@
   "rules": {
     "global-require": 0, // for react native require assets
     "react/react-in-jsx-scope": 0, // not required import React
+    "react/no-unescaped-entities": 0, // disable because react native without using html
     "react/jsx-props-no-spreading": 0, // allow spreading props
     "@typescript-eslint/no-var-requires": 0, // for react native require assets
     "@typescript-eslint/no-non-null-assertion": 0, // allow !
