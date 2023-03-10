@@ -1,27 +1,59 @@
 /* React */
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 /* Native base */
-import { Box, Text } from 'native-base';
+import { VStack, Box, Button, Text } from 'native-base';
 
 /* Components */
 import DrawerNavbar from '../components/navigator/DrawerNavbar';
+import CategoryForm from '../components/category/CategoryForm';
 
 /* //////////////////////////////////////////////////////////////// */
 export default function CategoriesScreen() {
+  const [showAddForm, setShowAddFrom] = useState<boolean>(false);
+
+  /* Event handler ------------------------------------------------ */
+  const handleShowAddForm = useCallback(() => {
+    setShowAddFrom(true);
+  }, []);
+
+  const handleHideAddForm = useCallback(() => {
+    setShowAddFrom(false);
+  }, []);
+
   /* JSX ---------------------------------------------------------- */
   return (
     <>
       <DrawerNavbar title="Categories" />
 
-      <Box
+      <VStack
+        space="sm"
         flex={1}
-        justifyContent="center"
-        alignItems="center"
+        paddingX={3}
         _light={{ bgColor: 'bgLightMode' }}
         _dark={{ bgColor: 'bgDarkMode' }}
       >
-        <Text>Categories Screen</Text>
-      </Box>
+        {showAddForm ? (
+          <CategoryForm
+            onCancel={handleHideAddForm}
+            onConfirm={handleHideAddForm}
+          />
+        ) : (
+          <Box borderRadius="xl" overflow="hidden">
+            <Button
+              onPress={handleShowAddForm}
+              variant="unstyled"
+              bgColor="primary.600"
+              android_ripple={{
+                color: 'rippleLightMode',
+              }}
+            >
+              <Text fontSize="lg" color="textDarkMode">
+                + Add
+              </Text>
+            </Button>
+          </Box>
+        )}
+      </VStack>
     </>
   );
 }

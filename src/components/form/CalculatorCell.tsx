@@ -12,7 +12,6 @@ type Props = {
   _bgDark?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-use-before-define
 CalculatorCell.defaultProps = {
   flex: 1,
   _bgLight: 'bgLightMode',

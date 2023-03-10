@@ -23,6 +23,10 @@
     "react/react-in-jsx-scope": 0, // not required import React
     "react/jsx-props-no-spreading": 0, // allow spreading props
     "@typescript-eslint/no-var-requires": 0, // for react native require assets
-    "@typescript-eslint/no-non-null-assertion": 0 // allow !
+    "@typescript-eslint/no-non-null-assertion": 0, // allow !
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      { "functions": false, "classes": true, "variables": true }
+    ]
   }
 }
