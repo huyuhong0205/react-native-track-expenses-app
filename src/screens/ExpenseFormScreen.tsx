@@ -80,8 +80,8 @@ export default function ExpenseFormScreen({ navigation }: Props) {
               <Icon
                 as={CustomIcon}
                 name="trash"
-                color={useColorModeValue('error.500', 'error.500')}
                 size="xl"
+                color={useColorModeValue('error.500', 'error.500')}
               />
             }
             variant="unstyled"

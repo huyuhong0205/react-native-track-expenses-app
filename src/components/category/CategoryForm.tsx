@@ -1,5 +1,5 @@
 /* React */
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 /* Native base */
 import {
   VStack,
@@ -9,7 +9,12 @@ import {
   Text,
   useColorModeValue,
 } from 'native-base';
+/* Realm */
+import { BSON } from 'realm';
 
+/* DB */
+import { useRealm } from '../../models/realm';
+import Category from '../../models/categorySchema';
 /* Components */
 import CategoriesIconModal from './CategoriesIconModal';
 import CategoryIcon from './CategoryIcon';
@@ -18,13 +23,35 @@ import CategoryIcon from './CategoryIcon';
 type Props = {
   onCancel: () => void;
   onConfirm: () => void;
+  categoryId?: BSON.ObjectId;
 };
 
-export default function CategoryForm({ onCancel, onConfirm }: Props) {
+CategoryForm.defaultProps = {
+  categoryId: undefined,
+};
+
+export default function CategoryForm({
+  onCancel,
+  onConfirm,
+  categoryId,
+}: Props) {
+  const realm = useRealm();
+
   const [showIconSelectModal, setShowIconSelectModal] =
     useState<boolean>(false);
   const [iconName, setIconName] = useState<string>('');
   const [categoryName, setCategoryName] = useState<string>('');
+
+  useEffect(() => {
+    if (!categoryId) return;
+
+    const category = realm.objectForPrimaryKey(Category, categoryId);
+
+    if (!category) return;
+
+    setIconName(category.iconName);
+    setCategoryName(category.categoryName);
+  }, [realm, categoryId]);
 
   /* Event handler ------------------------------------------------ */
   const handleShowIconSelectModal = useCallback(() => {
@@ -46,9 +73,19 @@ export default function CategoryForm({ onCancel, onConfirm }: Props) {
   const handleConfirm = () => {
     if (categoryName.trim().length === 0) return;
 
-    // [TODO] write database
-    // eslint-disable-next-line no-console -- [TEMP]
-    console.log('iconName: ', iconName, ', categoryName: ', categoryName);
+    if (!categoryId) {
+      realm.write(() => {
+        const newCategory = new Category(realm, categoryName, iconName);
+        return newCategory;
+      });
+    } else {
+      realm.write(() => {
+        const category = realm.objectForPrimaryKey(Category, categoryId);
+        category.iconName = iconName;
+        category.categoryName = categoryName;
+      });
+    }
+
     onConfirm();
   };
 

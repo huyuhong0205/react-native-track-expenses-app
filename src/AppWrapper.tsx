@@ -10,6 +10,8 @@ import { View } from 'react-native';
 import { NativeBaseProvider } from 'native-base';
 import theme from './theme';
 
+/* DB */
+import { RealmProvider } from './models/realm';
 /* Root component */
 import App from './App';
 
@@ -57,9 +59,11 @@ export default function AppWrapper() {
 
   return (
     <View onLayout={handleLayoutRootView} style={{ flex: 1 }}>
-      <NativeBaseProvider theme={theme}>
-        <App />
-      </NativeBaseProvider>
+      <RealmProvider>
+        <NativeBaseProvider theme={theme}>
+          <App />
+        </NativeBaseProvider>
+      </RealmProvider>
     </View>
   );
 }
