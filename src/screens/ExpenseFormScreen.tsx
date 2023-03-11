@@ -16,6 +16,9 @@ import {
 /* Realm */
 import { BSON } from 'realm';
 
+/* DB */
+import { useRealm } from '../models/realm';
+import Expense from '../models/expenseSchema';
 /* Components */
 import CustomIcon from '../atoms/CustomIcon';
 import StackNavbar from '../components/navigator/StackNavbar';
@@ -31,6 +34,8 @@ import { TStackParamList } from '../types/TypeNavigator';
 type Props = StackScreenProps<TStackParamList, 'expense_form_screen'>;
 
 export default function ExpenseFormScreen({ navigation }: Props) {
+  const realm = useRealm();
+
   const [title, setTitle] = useState<string>('');
   const [amount, setAmount] = useState<string>('0');
   const [isExpense, setIsExpense] = useState<boolean>(true);
@@ -69,13 +74,21 @@ export default function ExpenseFormScreen({ navigation }: Props) {
 
   const handleSubmitForm = () => {
     if (!categoryId) return; // [TODO] show alert
+    if (Number.isNaN(+amount)) return;
 
-    console.log('title: ', title);
-    console.log('amount: ', amount);
-    console.log('isExpense: ', isExpense);
-    console.log('date: ', date);
-    console.log('categoryId: ', categoryId);
-    console.log('note: ', note);
+    // [TODO] update expense in different mode
+    realm.write(() => {
+      const newExpense = new Expense(
+        realm,
+        title.trim(),
+        +amount,
+        isExpense,
+        date,
+        categoryId,
+        note.trim()
+      );
+      return newExpense;
+    });
 
     navigation.goBack();
   };

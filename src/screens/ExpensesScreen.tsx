@@ -7,6 +7,9 @@ import { StackScreenProps } from '@react-navigation/stack';
 /* Native base */
 import { Box, Text, Button } from 'native-base';
 
+/* DB */
+import { useQuery } from '../models/realm';
+import Expense from '../models/expenseSchema';
 /* Components */
 import DrawerNavbar from '../components/navigator/DrawerNavbar';
 /* Types */
@@ -19,6 +22,9 @@ type Props = CompositeScreenProps<
 >;
 
 export default function ExpensesScreen({ navigation }: Props) {
+  const expensesInRealm = useQuery(Expense);
+  console.log(expensesInRealm);
+
   const handleGoExpenseForm = useCallback(() => {
     navigation.navigate('expense_form_screen');
   }, [navigation]);
