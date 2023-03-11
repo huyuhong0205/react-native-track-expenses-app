@@ -66,8 +66,8 @@ export default function Calculator({ isOpen, onClose, onPressOK }: Props) {
       <VStack
         // height={500}
         width={332}
-        shadow="5"
         borderRadius="xl"
+        shadow="5"
         overflow="hidden"
         bgColor={useColorModeValue('bgLightMode', 'bgDarkMode')}
       >

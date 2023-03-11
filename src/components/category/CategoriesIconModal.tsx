@@ -30,6 +30,7 @@ export default function CategoriesIconModal({
         width="300px"
         padding={3}
         borderRadius="xl"
+        shadow="5"
         overflow="hidden"
         bgColor={useColorModeValue('bgLightMode', 'bgDarkMode')}
       >

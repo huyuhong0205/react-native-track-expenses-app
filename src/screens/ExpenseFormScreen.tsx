@@ -13,6 +13,8 @@ import {
   Icon,
   useColorModeValue,
 } from 'native-base';
+/* Realm */
+import { BSON } from 'realm';
 
 /* Components */
 import CustomIcon from '../atoms/CustomIcon';
@@ -20,6 +22,7 @@ import StackNavbar from '../components/navigator/StackNavbar';
 import TitleInput from '../components/form/TitleInput';
 import AmountInput from '../components/form/AmountInput';
 import DateTimePicker from '../components/form/DateTimePicker';
+import CategoryPicker from '../components/form/CategoryPicker';
 import NoteInput from '../components/form/NoteInput';
 /* Types */
 import { TStackParamList } from '../types/TypeNavigator';
@@ -32,6 +35,7 @@ export default function ExpenseFormScreen({ navigation }: Props) {
   const [amount, setAmount] = useState<string>('0');
   const [isExpense, setIsExpense] = useState<boolean>(true);
   const [date, setDate] = useState<Date>(new Date());
+  const [categoryId, setCategoryId] = useState<BSON.ObjectId | null>(null);
   const [note, setNote] = useState<string>('');
 
   /* Event handler ------------------------------------------------ */
@@ -55,15 +59,22 @@ export default function ExpenseFormScreen({ navigation }: Props) {
     setDate(selectedDate);
   }, []);
 
+  const handlePickCategory = useCallback((pickedCategoryId: BSON.ObjectId) => {
+    setCategoryId(pickedCategoryId);
+  }, []);
+
   const handleNoteChange = useCallback((inputNote: string) => {
     setNote(inputNote);
   }, []);
 
   const handleSubmitForm = () => {
+    if (!categoryId) return; // [TODO] show alert
+
     console.log('title: ', title);
     console.log('amount: ', amount);
     console.log('isExpense: ', isExpense);
     console.log('date: ', date);
+    console.log('categoryId: ', categoryId);
     console.log('note: ', note);
 
     navigation.goBack();
@@ -107,6 +118,10 @@ export default function ExpenseFormScreen({ navigation }: Props) {
           onToggleIsExpense={handleToggleIsExpense}
         />
         <DateTimePicker date={date} onSelectDate={handleSelectDate} />
+        <CategoryPicker
+          categoryId={categoryId}
+          onPickCategory={handlePickCategory}
+        />
         <NoteInput note={note} onNoteChange={handleNoteChange} />
 
         <Fab
