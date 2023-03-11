@@ -1,5 +1,5 @@
 /* React */
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, memo } from 'react';
 /* Native base */
 import { HStack, Box, Text, IconButton, Icon } from 'native-base';
 /* Realm */
@@ -24,7 +24,7 @@ type Props = {
   onCancelCategoryEditMode: () => void;
 };
 
-export default function CategoryItem({
+function CategoryItem({
   _id,
   categoryName,
   iconName,
@@ -76,8 +76,7 @@ export default function CategoryItem({
         isOpen={showConfirmDialog}
         onClose={handleHideConfirmDialog}
         title="Delete Category?"
-        description="If you delete this category, all expense belong this category will be
-        removed."
+        description="If you delete this category, all expense belong this category will be removed."
         confirmActionText="Delete"
       />
 
@@ -116,3 +115,7 @@ export default function CategoryItem({
     </>
   );
 }
+
+const MemoedCategoryItem = memo(CategoryItem);
+
+export default MemoedCategoryItem;
