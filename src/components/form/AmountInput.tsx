@@ -1,5 +1,5 @@
 /* React */
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 /* Native base */
 import { HStack, IconButton, Icon, Input } from 'native-base';
 
@@ -15,7 +15,7 @@ type Props = {
   onToggleIsExpense: () => void;
 };
 
-export default function AmountInput({
+function AmountInput({
   amount,
   onAmountChange,
   isExpense,
@@ -80,3 +80,7 @@ export default function AmountInput({
     </>
   );
 }
+
+const MemoedAmountInput = memo(AmountInput);
+
+export default MemoedAmountInput;

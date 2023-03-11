@@ -1,5 +1,5 @@
 /* React */
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 /* Native base */
 import { HStack, Text, Button, Icon, useColorModeValue } from 'native-base';
 /* DateTimePicker */
@@ -19,17 +19,14 @@ type Props = {
   onSelectDate: (selectedDate: Date) => void;
 };
 
-export default function DateTimePicker({
-  date,
-  onSelectDate: handleSelectDate,
-}: Props) {
+function DateTimePicker({ date, onSelectDate }: Props) {
   /* Event handler ------------------------------------------------ */
   const handleDateChange = useCallback(
     (_: DateTimePickerEvent, selectedDate: Date) => {
       const currentDate = selectedDate || new Date();
-      handleSelectDate(currentDate);
+      onSelectDate(currentDate);
     },
-    [handleSelectDate]
+    [onSelectDate]
   );
 
   const handleShowDatePicker = () => {
@@ -88,3 +85,7 @@ export default function DateTimePicker({
     </HStack>
   );
 }
+
+const MemoedDateTimePicker = memo(DateTimePicker);
+
+export default MemoedDateTimePicker;
