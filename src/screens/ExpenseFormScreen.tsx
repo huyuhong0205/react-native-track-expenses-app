@@ -3,6 +3,7 @@
 /* React */
 import React, { useCallback, useState } from 'react';
 /* Navigation */
+import { useIsFocused } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 /* Native base */
 import {
@@ -34,6 +35,8 @@ import { TStackParamList } from '../types/TypeNavigator';
 type Props = StackScreenProps<TStackParamList, 'expense_form_screen'>;
 
 export default function ExpenseFormScreen({ navigation }: Props) {
+  const isFocused = useIsFocused();
+
   const realm = useRealm();
 
   const [title, setTitle] = useState<string>('');
@@ -137,13 +140,15 @@ export default function ExpenseFormScreen({ navigation }: Props) {
         />
         <NoteInput note={note} onNoteChange={handleNoteChange} />
 
-        <Fab
-          onPress={handleSubmitForm}
-          position="absolute"
-          bottom="30px"
-          right="30px"
-          icon={<Icon as={CustomIcon} name="check" size="2xl" />}
-        />
+        {isFocused && (
+          <Fab
+            onPress={handleSubmitForm}
+            position="absolute"
+            bottom="30px"
+            right="30px"
+            icon={<Icon as={CustomIcon} name="check" size="2xl" />}
+          />
+        )}
       </VStack>
     </>
   );
