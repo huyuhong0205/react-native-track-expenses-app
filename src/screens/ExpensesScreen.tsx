@@ -14,6 +14,7 @@ import Expense from '../models/expenseSchema';
 /* Components */
 import CustomIcon from '../atoms/CustomIcon';
 import DrawerNavbar from '../components/navigator/DrawerNavbar';
+import Calendar from '../components/expense/Calendar';
 import ExpenseItem from '../components/expense/ExpenseItem';
 /* Types */
 import { TDrawerParamList, TStackParamList } from '../types/TypeNavigator';
@@ -30,8 +31,11 @@ export default function ExpensesScreen({ navigation }: Props) {
   const realm = useRealm();
   const categoriesInRealm = useQuery(Category);
 
-  // [TODO] if no picked date set date to null query entire month
-  const [pickedDate, setPickedDate] = useState<Date>(new Date('2023-03-12'));
+  const [pickedDate, setPickedDate] = useState<Date | null>(null);
+  const [currentYearMonth, setCurrentYearMonth] = useState<{
+    year: number;
+    month: number;
+  }>({ year: new Date().getFullYear(), month: new Date().getMonth() + 1 });
   const [expenses, setExpenses] =
     useState<Realm.Results<Expense & Realm.Object<unknown, never>>>();
 
@@ -52,16 +56,41 @@ export default function ExpensesScreen({ navigation }: Props) {
   }, [categoriesInRealm]);
 
   useEffect(() => {
-    const endDate = new Date(pickedDate.getTime() + 24 * 60 * 60 * 1000 - 1);
+    const startDate =
+      pickedDate ||
+      new Date(
+        `${currentYearMonth.year}-${currentYearMonth.month < 10 ? '0' : ''}${
+          currentYearMonth.month
+        }-01`
+      );
+    const endDate = pickedDate
+      ? new Date(pickedDate.getTime() + 24 * 60 * 60 * 1000 - 1)
+      : new Date(
+          new Date(
+            `${currentYearMonth.year}-${
+              currentYearMonth.month + 1 < 10 ? '0' : ''
+            }${currentYearMonth.month + 1}-01`
+          ).getTime() - 1
+        );
 
     const queryExpenses = realm
       .objects(Expense)
-      .filtered('date >= $0 && date < $1', pickedDate, endDate);
+      .filtered('date >= $0 && date < $1', startDate, endDate);
 
     setExpenses(queryExpenses);
-  }, [realm, pickedDate]);
+  }, [realm, pickedDate, currentYearMonth]);
 
   /* Event handler ------------------------------------------------ */
+  const handlePickDateInCalendar = useCallback((dateString: string) => {
+    if (dateString === '') setPickedDate(null);
+    else setPickedDate(new Date(dateString));
+  }, []);
+
+  const handleChangeInCalendar = useCallback((year: number, month: number) => {
+    setPickedDate(null);
+    setCurrentYearMonth({ year, month });
+  }, []);
+
   const handleGoExpenseFormScreen = useCallback(() => {
     navigation.navigate('expense_form_screen');
   }, [navigation]);
@@ -78,6 +107,11 @@ export default function ExpensesScreen({ navigation }: Props) {
         _light={{ bgColor: 'bgLightMode' }}
         _dark={{ bgColor: 'bgDarkMode' }}
       >
+        <Calendar
+          onPickDateInCalendar={handlePickDateInCalendar}
+          onChangeMonthInCalendar={handleChangeInCalendar}
+        />
+
         {expenses && expenses.length > 0 ? (
           <FlatList
             flex={1}
