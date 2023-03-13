@@ -66,7 +66,7 @@ function StackNavigator() {
         cardStyle: {
           backgroundColor: useColorModeValue(bgLightMode, bgDarkMode),
         },
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
       }}
     >
       <Stack.Screen name="expense_form_screen" component={ExpenseFormScreen} />

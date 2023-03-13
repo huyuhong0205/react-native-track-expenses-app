@@ -88,7 +88,7 @@ export default function ExpensesScreen({ navigation }: Props) {
             position="absolute"
             bottom="30px"
             right="30px"
-            icon={<Icon as={CustomIcon} name="add_circle" size="2xl" />}
+            icon={<Icon as={CustomIcon} name="add" size="2xl" />}
           />
         )}
       </VStack>
