@@ -4,6 +4,6 @@ export type TDrawerParamList = {
 };
 
 export type TStackParamList = {
-  expense_form_screen: undefined;
+  expense_form_screen: { expenseId: string } | undefined;
   drawer_navigator: undefined;
 };

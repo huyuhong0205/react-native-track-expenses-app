@@ -45,10 +45,9 @@ export default function ExpensesScreen({ navigation }: Props) {
 
     return categoriesMap;
   }, [categoriesInRealm]);
-  console.log(categories);
 
   /* Event handler ------------------------------------------------ */
-  const handleGoExpenseForm = useCallback(() => {
+  const handleGoExpenseFormScreen = useCallback(() => {
     navigation.navigate('expense_form_screen');
   }, [navigation]);
 
@@ -72,7 +71,11 @@ export default function ExpensesScreen({ navigation }: Props) {
           keyExtractor={(expense) => String(expense._id)}
           renderItem={({ item: expense }) => (
             <ExpenseItem
-              expense={expense}
+              _id={String(expense._id)}
+              title={expense.title}
+              amount={expense.amount}
+              isExpense={expense.isExpense}
+              date={expense.date}
               // categoryName={categories[String(expense.categoryId)].categoryName}
               iconName={categories[String(expense.categoryId)].iconName}
             />
@@ -81,7 +84,7 @@ export default function ExpensesScreen({ navigation }: Props) {
 
         {isFocused && (
           <Fab
-            onPress={handleGoExpenseForm}
+            onPress={handleGoExpenseFormScreen}
             position="absolute"
             bottom="30px"
             right="30px"

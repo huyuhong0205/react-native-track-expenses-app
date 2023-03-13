@@ -79,7 +79,7 @@ function DateTimePicker({ date, onSelectDate }: Props) {
       >
         <HStack alignItems="center">
           <Icon as={CustomIcon} name="clock" size="lg" marginRight={5} />
-          <Text fontSize="lg">{format(date, 'hh:mm')}</Text>
+          <Text fontSize="lg">{format(date, 'HH:mm')}</Text>
         </HStack>
       </Button>
     </HStack>

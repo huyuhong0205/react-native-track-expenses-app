@@ -1,7 +1,7 @@
 /* eslint-disable no-console -- [TEMP] */
 
 /* React */
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 /* Navigation */
 import { useIsFocused } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -22,6 +22,7 @@ import { useRealm } from '../models/realm';
 import Expense from '../models/expenseSchema';
 /* Components */
 import CustomIcon from '../atoms/CustomIcon';
+import ConfirmDialog from '../components/ConfirmDialog';
 import StackNavbar from '../components/navigator/StackNavbar';
 import TitleInput from '../components/form/TitleInput';
 import AmountInput from '../components/form/AmountInput';
@@ -34,11 +35,14 @@ import { TStackParamList } from '../types/TypeNavigator';
 /* //////////////////////////////////////////////////////////////// */
 type Props = StackScreenProps<TStackParamList, 'expense_form_screen'>;
 
-export default function ExpenseFormScreen({ navigation }: Props) {
+export default function ExpenseFormScreen({ navigation, route }: Props) {
+  const expenseId = route.params?.expenseId || undefined;
+
   const isFocused = useIsFocused();
 
   const realm = useRealm();
 
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
   const [amount, setAmount] = useState<string>('0');
   const [isExpense, setIsExpense] = useState<boolean>(true);
@@ -46,10 +50,36 @@ export default function ExpenseFormScreen({ navigation }: Props) {
   const [categoryId, setCategoryId] = useState<BSON.ObjectId | null>(null);
   const [note, setNote] = useState<string>('');
 
+  // prefill form data if in edit mode
+  useLayoutEffect(() => {
+    if (!expenseId) return;
+
+    const expenseInRealm = realm.objectForPrimaryKey(
+      Expense,
+      new BSON.ObjectId(expenseId)
+    );
+
+    if (!expenseInRealm) {
+      navigation.goBack();
+      return;
+    }
+
+    setTitle(expenseInRealm.title);
+    setAmount(String(expenseInRealm.amount));
+    setIsExpense(expenseInRealm.isExpense);
+    setDate(expenseInRealm.date);
+    setCategoryId(expenseInRealm.categoryId);
+    setNote(expenseInRealm.note);
+  }, [navigation, realm, expenseId]);
+
   /* Event handler ------------------------------------------------ */
-  const handleDelete = () => {
-    console.log('delete');
-  };
+  const handleShowConfirmDialog = useCallback(() => {
+    setShowConfirmDialog(true);
+  }, []);
+
+  const handleHideConfirmDialog = useCallback(() => {
+    setShowConfirmDialog(false);
+  }, []);
 
   const handleTitleChange = useCallback((inputTitle: string) => {
     setTitle(inputTitle);
@@ -75,23 +105,53 @@ export default function ExpenseFormScreen({ navigation }: Props) {
     setNote(inputNote);
   }, []);
 
+  const handleDeleteExpense = useCallback(() => {
+    const expenseInRealm = realm.objectForPrimaryKey(
+      Expense,
+      new BSON.ObjectId(expenseId)
+    );
+
+    if (!expenseInRealm) return;
+
+    realm.write(() => {
+      realm.delete(expenseInRealm);
+    });
+
+    setShowConfirmDialog(false);
+    navigation.goBack();
+  }, [navigation, realm, expenseId]);
+
   const handleSubmitForm = () => {
     if (!categoryId) return; // [TODO] show alert
     if (Number.isNaN(+amount)) return;
 
-    // [TODO] update expense in different mode
-    realm.write(() => {
-      const newExpense = new Expense(
-        realm,
-        title.trim(),
-        Math.abs(+amount),
-        isExpense,
-        date,
-        categoryId,
-        note.trim()
-      );
-      return newExpense;
-    });
+    if (!expenseId) {
+      realm.write(() => {
+        const newExpense = new Expense(
+          realm,
+          title.trim(),
+          Math.abs(+amount),
+          isExpense,
+          date,
+          categoryId,
+          note.trim()
+        );
+        return newExpense;
+      });
+    } else {
+      realm.write(() => {
+        const expenseInRealm = realm.objectForPrimaryKey(
+          Expense,
+          new BSON.ObjectId(expenseId)
+        );
+        expenseInRealm.title = title.trim();
+        expenseInRealm.amount = Math.abs(+amount);
+        expenseInRealm.isExpense = isExpense;
+        expenseInRealm.date = date;
+        expenseInRealm.categoryId = categoryId;
+        expenseInRealm.note = note.trim();
+      });
+    }
 
     navigation.goBack();
   };
@@ -99,24 +159,36 @@ export default function ExpenseFormScreen({ navigation }: Props) {
   /* JSX ---------------------------------------------------------- */
   return (
     <>
+      <ConfirmDialog
+        onConfirm={handleDeleteExpense}
+        isOpen={showConfirmDialog}
+        onClose={handleHideConfirmDialog}
+        title="Delete Expense?"
+        description="Do you want to delete this expense?"
+        confirmActionText="Delete"
+      />
+
       <StackNavbar title="Add new expense">
-        <Center borderRadius="full" overflow="hidden">
-          <IconButton
-            onPress={handleDelete}
-            icon={
-              <Icon
-                as={CustomIcon}
-                name="trash"
-                size="xl"
-                color={useColorModeValue('error.500', 'error.500')}
-              />
-            }
-            variant="unstyled"
-            android_ripple={{
-              color: useColorModeValue('rippleLightMode', 'rippleDarkMode'),
-            }}
-          />
-        </Center>
+        {expenseId && (
+          <Center borderRadius="full" overflow="hidden">
+            <IconButton
+              onPress={handleShowConfirmDialog}
+              icon={
+                <Icon
+                  as={CustomIcon}
+                  name="trash"
+                  size="xl"
+                  color="error.500"
+                />
+              }
+              variant="unstyled"
+              android_ripple={{
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                color: useColorModeValue('rippleLightMode', 'rippleDarkMode'),
+              }}
+            />
+          </Center>
+        )}
       </StackNavbar>
 
       <VStack
