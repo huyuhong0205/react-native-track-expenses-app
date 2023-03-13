@@ -84,7 +84,7 @@ export default function ExpenseFormScreen({ navigation }: Props) {
       const newExpense = new Expense(
         realm,
         title.trim(),
-        +amount,
+        Math.abs(+amount),
         isExpense,
         date,
         categoryId,

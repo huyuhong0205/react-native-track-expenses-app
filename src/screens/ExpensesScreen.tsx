@@ -5,7 +5,7 @@ import { CompositeScreenProps, useIsFocused } from '@react-navigation/native';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { StackScreenProps } from '@react-navigation/stack';
 /* Native base */
-import { VStack, Fab, Text, Button, Icon } from 'native-base';
+import { VStack, FlatList, Fab, Icon } from 'native-base';
 
 /* DB */
 import { useQuery } from '../models/realm';
@@ -14,6 +14,7 @@ import Expense from '../models/expenseSchema';
 /* Components */
 import CustomIcon from '../atoms/CustomIcon';
 import DrawerNavbar from '../components/navigator/DrawerNavbar';
+import ExpenseItem from '../components/expense/ExpenseItem';
 /* Types */
 import { TDrawerParamList, TStackParamList } from '../types/TypeNavigator';
 
@@ -63,8 +64,20 @@ export default function ExpensesScreen({ navigation }: Props) {
         _light={{ bgColor: 'bgLightMode' }}
         _dark={{ bgColor: 'bgDarkMode' }}
       >
-        <Text marginBottom={10}>Expenses Screen</Text>
-        <Button onPress={handleGoExpenseForm}>go expense form</Button>
+        <FlatList
+          flex={1}
+          width="full"
+          padding={2}
+          data={expensesInRealm}
+          keyExtractor={(expense) => String(expense._id)}
+          renderItem={({ item: expense }) => (
+            <ExpenseItem
+              expense={expense}
+              // categoryName={categories[String(expense.categoryId)].categoryName}
+              iconName={categories[String(expense.categoryId)].iconName}
+            />
+          )}
+        />
 
         {isFocused && (
           <Fab
