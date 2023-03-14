@@ -6,7 +6,26 @@ import { Modal, VStack, HStack, Text, useColorModeValue } from 'native-base';
 /* Components */
 import CategoryIcon from './CategoryIcon';
 
-const iconNames: string[] = ['', 'clock', 'title'];
+const iconNames: string[] = [
+  '',
+  'atm',
+  'bathtub',
+  'child_care',
+  'directions_car',
+  'directions_walk',
+  'emoji_people',
+  'fastfood',
+  'fitness_center',
+  'flight_takeoff',
+  'gamepad',
+  'laptop_chromebook',
+  'local_grocery_store',
+  'menu_book',
+  'nightlife',
+  'phone_enabled',
+  'sports_bar',
+  'sports_soccer',
+];
 
 /* //////////////////////////////////////////////////////////////// */
 type Props = {
@@ -26,9 +45,9 @@ export default function CategoriesIconModal({
       <VStack
         space="md"
         alignItems="center"
-        height="300px"
-        width="300px"
-        padding={3}
+        // height="300px"
+        // width="300px"
+        padding={8}
         borderRadius="xl"
         shadow="5"
         overflow="hidden"
@@ -43,18 +62,22 @@ export default function CategoriesIconModal({
           Choose Icon
         </Text>
 
-        <HStack space="md">
-          {iconNames.map((iconName) => (
-            <CategoryIcon
-              key={iconName}
-              name={iconName}
-              onPress={() => {
-                onSelectIcon(iconName);
-                onClose();
-              }}
-            />
+        <VStack space="md">
+          {[0, 1, 2, 3].map((num) => (
+            <HStack key={`icon-row-${num}`} space="md">
+              {iconNames.slice(num * 4, num * 4 + 4).map((iconName) => (
+                <CategoryIcon
+                  key={iconName}
+                  name={iconName}
+                  onPress={() => {
+                    onSelectIcon(iconName);
+                    onClose();
+                  }}
+                />
+              ))}
+            </HStack>
           ))}
-        </HStack>
+        </VStack>
       </VStack>
     </Modal>
   );
