@@ -5,7 +5,18 @@ import { CompositeScreenProps, useIsFocused } from '@react-navigation/native';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { StackScreenProps } from '@react-navigation/stack';
 /* Native base */
-import { VStack, FlatList, Box, Text, Fab, Icon } from 'native-base';
+import {
+  VStack,
+  HStack,
+  FlatList,
+  Box,
+  Text,
+  Fab,
+  Icon,
+  useColorModeValue,
+} from 'native-base';
+/* Date fns */
+import { format } from 'date-fns';
 
 /* DB */
 import { useQuery, useRealm } from '../models/realm';
@@ -54,6 +65,18 @@ export default function ExpensesScreen({ navigation }: Props) {
 
     return categoriesMap;
   }, [categoriesInRealm]);
+
+  const totalAmount = useMemo(() => {
+    if (!expenses) return 0;
+
+    return expenses.reduce(
+      (accumulator, expense) =>
+        expense.isExpense
+          ? accumulator - expense.amount
+          : accumulator + expense.amount,
+      0
+    );
+  }, [expenses]);
 
   useEffect(() => {
     const startDate =
@@ -115,11 +138,36 @@ export default function ExpensesScreen({ navigation }: Props) {
           onChangeMonthInCalendar={handleChangeInCalendar}
         />
 
+        <Box
+          width="95%"
+          paddingX={2}
+          borderBottomColor={useColorModeValue('textLightMode', 'textDarkMode')}
+          borderBottomWidth="0.8px"
+        >
+          <HStack alignItems="flex-end">
+            <Text fontSize="lg">
+              {pickedDate
+                ? format(pickedDate, 'yyyy/MM/dd')
+                : `${currentYearMonth.year}/${String(
+                    currentYearMonth.month
+                  ).padStart(2, '0')}`}
+            </Text>
+            <Text
+              marginLeft="auto"
+              fontSize="xl"
+              fontWeight="medium"
+              color={totalAmount <= 0 ? 'red.500' : 'green.500'}
+            >
+              {totalAmount}
+            </Text>
+          </HStack>
+        </Box>
+
         {expenses && expenses.length > 0 ? (
           <FlatList
             flex={1}
             width="full"
-            padding={2}
+            margin={2}
             data={expenses}
             keyExtractor={(expense) => String(expense._id)}
             renderItem={({ item: expense }) => (
