@@ -1,7 +1,7 @@
 /* React */
 import React, { useMemo, useState } from 'react';
 /* Native base */
-import { Box, useColorModeValue } from 'native-base';
+import { Box, useColorMode, useColorModeValue } from 'native-base';
 /* Calendar */
 import { Calendar as RNCalendar, DateData } from 'react-native-calendars';
 /* Date fns */
@@ -25,6 +25,8 @@ export default function Calendar({
   onPickDateInCalendar,
   onChangeMonthInCalendar,
 }: Props) {
+  const { colorMode } = useColorMode();
+
   const realm = useRealm();
 
   const [currentSelectDate, setCurrentSelectDate] = useState<string>('');
@@ -85,11 +87,12 @@ export default function Calendar({
         style={{
           width: '100%',
         }}
+        key={colorMode} // [NOTE] when colorMode change rerender calendar
         theme={{
-          backgroundColor: useColorModeValue('bgLightMode', 'bgDarkMode'),
-          calendarBackground: useColorModeValue('bgLightMode', 'bgDarkMode'),
-          monthTextColor: useColorModeValue('bgLightMode', 'bgDarkMode'),
+          calendarBackground: 'transparent',
+          monthTextColor: useColorModeValue('#171717', '#ffffff'),
           dayTextColor: useColorModeValue('#171717', '#ffffff'),
+          textDisabledColor: useColorModeValue('#17171788', '#ffffff88'),
           arrowColor: '#3b82f6',
           dotColor: '#3b82f6',
           todayTextColor: '#3b82f6',
