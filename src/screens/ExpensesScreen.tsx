@@ -59,17 +59,18 @@ export default function ExpensesScreen({ navigation }: Props) {
     const startDate =
       pickedDate ||
       new Date(
-        `${currentYearMonth.year}-${currentYearMonth.month < 10 ? '0' : ''}${
-          currentYearMonth.month
-        }-01`
+        `${currentYearMonth.year}-${String(currentYearMonth.month).padStart(
+          2,
+          '0'
+        )}-01`
       );
     const endDate = pickedDate
       ? new Date(pickedDate.getTime() + 24 * 60 * 60 * 1000 - 1)
       : new Date(
           new Date(
-            `${currentYearMonth.year}-${
-              currentYearMonth.month + 1 < 10 ? '0' : ''
-            }${currentYearMonth.month + 1}-01`
+            `${currentYearMonth.year}-${String(
+              currentYearMonth.month + 1
+            ).padStart(2, '0')}-01`
           ).getTime() - 1
         );
 
@@ -108,6 +109,8 @@ export default function ExpensesScreen({ navigation }: Props) {
         _dark={{ bgColor: 'bgDarkMode' }}
       >
         <Calendar
+          curYear={currentYearMonth.year}
+          curMonth={currentYearMonth.month}
           onPickDateInCalendar={handlePickDateInCalendar}
           onChangeMonthInCalendar={handleChangeInCalendar}
         />
