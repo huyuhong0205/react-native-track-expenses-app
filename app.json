@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "react native expense tracking",
+    "slug": "react-native-expense-tracking",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.anonymous.trackexpenses"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "79b96e91-3256-435a-b6ae-f262e459d5d9"
+      }
+    }
+  }
+}
