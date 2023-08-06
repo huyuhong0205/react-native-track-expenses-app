@@ -32,11 +32,15 @@ PROJECT_ROOT
 
 ### Categories screen
 
+https://github.com/huyuhong0205/react-native-track-expenses-app/assets/114565048/31d37ae0-5879-48c4-be17-95b3896636da
+
 - Add, edit and delete category.
 - Can choose category icon.
 - All categories are stored in the Realm local database.
 
 ### Expenses screen
+
+https://github.com/huyuhong0205/react-native-track-expenses-app/assets/114565048/d96f076e-d71d-4455-85e0-34458d8b508e
 
 - Display expenses, you can filter expenses by day with just a click on the calendar.
 - Click expense to edit expense.
@@ -45,6 +49,8 @@ PROJECT_ROOT
 
 ### Expense form screen
 
+https://github.com/huyuhong0205/react-native-track-expenses-app/assets/114565048/36c94b6e-976e-45da-9ad5-d6282cb419e5
+
 - You can input the amount directly or use a custom calculator for calculations.
 - You can choose whether it's an expense or income.
 - Use the native date and time picker to select the expense time.
@@ -52,11 +58,13 @@ PROJECT_ROOT
 
 ### Light mode and dark mode
 
+https://github.com/huyuhong0205/react-native-track-expenses-app/assets/114565048/512f607a-47dc-4e0a-8da6-029894f7851c
+
 - You can switch between light mode and dark mode. This setting will be stored in react async storage and loaded upon app startup.
 
 ## Test this app
 
-- Download apk from `./APK` in this repo.
+- Download apk from `./APK/RN-expense-tracking_v1.0.0_build-2023-03-24.apk` in this repo.
 - Or you can clone this repo and setup your development environment follow [react native official doc](https://reactnative.dev/docs/environment-setup) then run scripts from `package.json`.
 
 ## Libraries
