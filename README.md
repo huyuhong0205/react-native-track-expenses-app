@@ -79,3 +79,6 @@ https://github.com/huyuhong0205/react-native-track-expenses-app/assets/114565048
 - [@react-native-community/datetimepicker](https://www.npmjs.com/package/@react-native-community/datetimepicker) - React native date & time picker component for iOS, Android and Windows.
 - [@react-navigation/native](https://reactnavigation.org/docs/getting-started/) - Navigation between different screens.
 - [@expo/vector-icons]() - A library it includes popular icon sets, and allow us to create own icon set using icon fonts.
+- [eslint](https://www.npmjs.com/package/eslint)
+- [eslint-config-airbnb](https://www.npmjs.com/package/eslint-config-airbnb)
+- [eslint-config-airbnb-typescript](https://www.npmjs.com/package/eslint-config-airbnb-typescript)
