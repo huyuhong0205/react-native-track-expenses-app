@@ -1,6 +1,6 @@
-# React native expense tracking app
+# React Native expense tracking app
 
-A mobile app build with react native for expense tracking.
+A mobile app build with React Native for expense tracking.
 
 **I don't have any Mac OS or iOS devices, so I'm only testing on Android.**
 
@@ -8,7 +8,7 @@ A mobile app build with react native for expense tracking.
 
 - Typescript
 - React
-- React native
+- React Native
 - Expo
 - Realm
 
